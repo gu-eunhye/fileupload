@@ -50,7 +50,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<button type="submit">자료 업로드</button>
+						<button type="submit" class="btn btn-outline-secondary">자료 업로드</button>
 					</td>
 					<!-- <td></td> -->
 				</tr>

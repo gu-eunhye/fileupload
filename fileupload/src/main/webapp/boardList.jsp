@@ -26,7 +26,7 @@
 		ORDER BY b.createdate DESC
 		LIMIT ?, ?
 	*/
-	String sql = "SELECT b.member_id memberId, b.board_title boardTitle, f.board_file_no boardFileNo, f.origin_filename originFilename, f.save_filename saveFilename, f.path path, b.createdate createdate FROM board b INNER JOIN board_file f ON b.board_no = f.board_no ORDER BY b.createdate DESC LIMIT ?, ?";
+	String sql = "SELECT b.board_no boardNo, b.member_id memberId, b.board_title boardTitle, f.board_file_no boardFileNo, f.origin_filename originFilename, f.save_filename saveFilename, f.path path, b.createdate createdate FROM board b INNER JOIN board_file f ON b.board_no = f.board_no ORDER BY b.createdate DESC LIMIT ?, ?";
 	PreparedStatement stmt = conn.prepareStatement(sql); 
 	stmt = conn.prepareStatement(sql);
 	stmt.setInt(1, startRow);
@@ -36,6 +36,7 @@
 	ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 	while(rs.next()){
 		HashMap<String, Object> m = new HashMap<>();
+		m.put("boardNo", rs.getInt("boardNo"));
 		m.put("memberId", rs.getString("memberId"));
 		m.put("boardTitle", rs.getString("boardTitle"));
 		m.put("boardFileNo", rs.getInt("boardFileNo"));
@@ -114,8 +115,8 @@
 						if(session.getAttribute("loginMemberId") != null){ 
 							if(session.getAttribute("loginMemberId").equals(m.get("memberId"))){	
 			%>					<!-- 로그인된 사용자와 댓글입력한 사용자가 일치하면 수정,삭제 가능 -->
-								<td><a href="<%=request.getContextPath()%>/modifyBoard.jsp?boardFileNo=<%=(int)m.get("boardFileNo")%>">수정</a></td>
-								<td><a href="<%=request.getContextPath()%>/removeBoard.jsp?boardFileNo=<%=(int)m.get("boardFileNo")%>">삭제</a></td>
+								<td><a href="<%=request.getContextPath()%>/modifyBoard.jsp?boardNo=<%=m.get("boardNo") %>&boardFileNo=<%=m.get("boardFileNo")%>">수정</a></td>
+								<td><a href="<%=request.getContextPath()%>/removeBoard.jsp?boardNo=<%=m.get("boardNo") %>">삭제</a></td>
 			<%
 							}else{
 			%>
