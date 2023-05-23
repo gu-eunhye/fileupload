@@ -116,7 +116,7 @@
 							if(session.getAttribute("loginMemberId").equals(m.get("memberId"))){	
 			%>					<!-- 로그인된 사용자와 댓글입력한 사용자가 일치하면 수정,삭제 가능 -->
 								<td><a href="<%=request.getContextPath()%>/modifyBoard.jsp?boardNo=<%=m.get("boardNo") %>&boardFileNo=<%=m.get("boardFileNo")%>">수정</a></td>
-								<td><a href="<%=request.getContextPath()%>/removeBoard.jsp?boardNo=<%=m.get("boardNo") %>">삭제</a></td>
+								<td><a href="<%=request.getContextPath()%>/removeBoard.jsp?boardNo=<%=m.get("boardNo") %>&boardFileNo=<%=m.get("boardFileNo")%>">삭제</a></td>
 			<%
 							}else{
 			%>

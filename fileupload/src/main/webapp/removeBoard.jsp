@@ -13,15 +13,19 @@
 
 	//요청값 유효성 검사: null이거나 공백이면 홈으로 리다이렉션 후 코드진행 종료
 	if(request.getParameter("boardNo") == null 
-			|| request.getParameter("boardNo").equals("")){
+			|| request.getParameter("boardNo").equals("")
+			|| request.getParameter("boardFileNo") == null 
+			|| request.getParameter("boardFileNo").equals("")){
 		response.sendRedirect(request.getContextPath()+"/boardList.jsp");
 		return;
 	}
 
 	//요청값 변수에 저장
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	int boardFileNo = Integer.parseInt(request.getParameter("boardFileNo"));
 	//디버깅
 	System.out.println(boardNo + "<--removeBoard boardNo");
+	System.out.println(boardFileNo + "<--removeBoard boardFileNo");
 %>
 <!DOCTYPE html>
 <html>
@@ -35,6 +39,7 @@
 	<div class="container">
 		<h1>게시글 삭제</h1>
 		<form action="./removeBoardAction.jsp" method="post">
+			<input type="hidden" name="boardFileNo" value="<%=boardFileNo %>">
 			<table class="table">
 				<tr>
 					<th>게시글 번호</th>
