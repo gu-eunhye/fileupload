@@ -4,7 +4,7 @@
 <%@ page import="vo.*" %>
 <%@ page import="java.io.*" %>
 <%@ page import="java.sql.*" %>
-<%@ page import = "java.net.*"%>
+<%@ page import="java.net.*"%>
 <%
 	//세션 유효성 검사 : 로그인이 되어있지 않으면 home으로 리다이렉션
 	if(session.getAttribute("loginMemberId") == null){

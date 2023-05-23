@@ -15,48 +15,51 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+	<!-- 메인메뉴 페이지 include -->
+	<div>
+		<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+	</div>
+	
 	<div class="container">
-		<!-- 메인메뉴 페이지 include -->
-		<div>
-			<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+		<div class="row">
+			<div class="col-sm-8">
+			<h1>PDF 자료 업로드</h1>
+			<form action="<%=request.getContextPath()%>/addBoardAction.jsp" method="post" enctype="multipart/form-data">
+				<table class="table">
+					<!-- 자료 업로드 제목글 -->
+					<tr>
+						<th>게시글 제목</th>
+						<td>
+							<textarea rows="3" cols="50" name="boardTitle" required="required"></textarea>
+						</td>
+					</tr>
+					<!-- 로그인 사용자 아이디 -->
+					<%
+						String memberId = (String)session.getAttribute("loginMemberId"); 
+					%>
+					<tr>
+						<th>회원 ID</th>
+						<td>
+							<input type="text" name="memberId" value="<%=memberId %>" style="border:none" readonly="readonly"> 
+						</td>
+					</tr>
+					<!-- 업로드할 자료 -->
+					<tr>
+						<th>파일</th>
+						<td>
+							<input type="file" name="boardFile" required="required"> 
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button type="submit" class="btn btn-outline-dark">자료 업로드</button>
+						</td>
+						<!-- <td></td> -->
+					</tr>
+				</table>
+			</form>
+			</div>
 		</div>
-		
-		<h1>PDF 자료 업로드</h1>
-		<form action="<%=request.getContextPath()%>/addBoardAction.jsp" method="post" enctype="multipart/form-data">
-			<table class="table">
-				<!-- 자료 업로드 제목글 -->
-				<tr>
-					<th>게시글 제목</th>
-					<td>
-						<textarea rows="3" cols="50" name="boardTitle" required="required"></textarea>
-					</td>
-				</tr>
-				<!-- 로그인 사용자 아이디 -->
-				<%
-					String memberId = (String)session.getAttribute("loginMemberId"); 
-				%>
-				<tr>
-					<th>회원 ID</th>
-					<td>
-						<input type="text" name="memberId" value="<%=memberId %>" readonly="readonly"> 
-					</td>
-				</tr>
-				<!-- 업로드할 자료 -->
-				<tr>
-					<th>파일</th>
-					<td>
-						<input type="file" name="boardFile" required="required"> 
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<button type="submit" class="btn btn-outline-secondary">자료 업로드</button>
-					</td>
-					<!-- <td></td> -->
-				</tr>
-			</table>
-			
-		</form>
 	</div>
 </body>
 </html>

@@ -79,10 +79,10 @@
 	System.out.println(PURPLE + row + " <--addMemberAction row" + RESET);
 	
 	if(row == 1){ 
-		msg = URLEncoder.encode("회원가입 성공", "utf-8");
-		response.sendRedirect(request.getContextPath()+"/boardList.jsp?msg="+msg);
+		System.out.println("회원가입 성공");
+		response.sendRedirect(request.getContextPath()+"/boardList.jsp");
 	} else {
-		msg = URLEncoder.encode("회원가입 실패", "utf-8");
-		response.sendRedirect(request.getContextPath()+"/boardList.jsp?msg="+msg);
+		System.out.println("회원가입 실패");
+		response.sendRedirect(request.getContextPath()+"/boardList.jsp");
 	}
 %>

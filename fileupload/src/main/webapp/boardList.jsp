@@ -6,7 +6,7 @@
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int rowPerPage = 2; //한페이지에 출력할 게시물 수
+	int rowPerPage = 10; //한페이지에 출력할 게시물 수
 	int startRow = (currentPage -1)*rowPerPage; //한페이지에 출력될 첫번째 행 번호
 
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -66,7 +66,7 @@
 		currentPage = lastPage;
 	}
 	
-	int pagePerPage = 2; //한번에 출력될 페이징 버튼 수
+	int pagePerPage = 5; //한번에 출력될 페이징 버튼 수
 	int startPage = ((currentPage - 1) / pagePerPage) * pagePerPage + 1; //페이징 버튼 시작 값
 	int endPage = startPage + pagePerPage - 1; //페이징 버튼 종료 값
 	if(endPage > lastPage){
@@ -80,17 +80,59 @@
 <title>boardList.jsp</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.page_wrap {
+	text-align:center;
+	font-size:0;
+ }
+.page_nation {
+	display:inline-block;
+}
+.page_nation .none {
+	display:none;
+}
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:1px solid #e6e6e6;
+	width:28px;
+	height:28px;
+	line-height:28px;
+	text-align:center;
+	background-color:#fff;
+	font-size:13px;
+	color:#999999;
+	text-decoration:none;
+}
+.page_nation .arrow {
+	border:1px solid #ccc;
+}
+.page_nation .prev {
+	background:#f8f8f8 url('img/page_prev.png') no-repeat center center;
+	margin-right:7px;
+}
+.page_nation .next {
+	background:#f8f8f8 url('img/page_next.png') no-repeat center center;
+	margin-left:7px;
+}
+.page_nation a.active {
+	background-color:#42454c;
+	color:#fff;
+	border:1px solid #42454c;
+}
+</style>
 </head>
 <body>
-	<div class="container">
-		<!-- 메인메뉴 페이지 include -->
-		<div>
-			<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
-		</div>
+	<!-- 메인메뉴 페이지 include -->
+	<div>
+		<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+	</div>
 		
+	<div class="container">
 		<!-- 게시글 목록 -->
 		<h1>PDF 자료 목록</h1>
-		<table class="table table-sm text-center">
+		<table class="table text-center">
 			<tr>
 				<th>게시글 제목</th>
 				<th>파일</th>
@@ -138,50 +180,43 @@
 		</table>
 		
 		<!-- board list 페이징 -->
-		<ul class="pagination justify-content-center" style="margin:20px 0">
-			
-				<%
-					//이전 페이지 버튼
-					if(startPage >1){
-				%>
-		    			<li class="page-item">
-		    				<a class="page-link text-dark" href="<%=request.getContextPath()%>/boardList.jsp?currentPage=<%=startPage-pagePerPage %>">
-		    					이전
-		    				</a>
-		    			</li>
-		    	<%
-					}
-			        for(int i = startPage; i <= endPage; i++){
-			        	if(i==currentPage){
-			    %>
-			        		<li class="page-item active">
-			        			<a class="page-link text-dark" href="<%=request.getContextPath()%>/boardList.jsp?currentPage=<%=i %>">
-			        				<%=i %>
-			        			</a>
-			        		</li>
-			    <%
-			        	}else{
-		    	%>
-		        		<li class="page-item">
-		        			<a class="page-link text-dark" href="<%=request.getContextPath()%>/boardList.jsp?currentPage=<%=i %>">
-		        				<%=i %>
-		        			</a>
-		        		</li>
-		        <%
-		        		}
-			        }
-			    	//다음 페이지 버튼
-			    	if(endPage != lastPage){
-		        %>
-					<li class="page-item">
-						<a class="page-link text-dark" href="<%=request.getContextPath()%>/boardList.jsp?currentPage=<%=startPage+pagePerPage %>">
-							다음
-						</a>
-					</li>
-				<%
-					}
-				%>
-		</ul>
+		<div class="page_wrap">
+   			<div class="page_nation">
+			<%
+				//이전 페이지 버튼
+				if(startPage >1){
+			%>
+    				<a class="arrow prev" href="<%=request.getContextPath()%>/boardList.jsp?currentPage=<%=startPage-pagePerPage %>">
+    					이전 
+    				</a>
+	    	<%
+				}
+		        for(int i = startPage; i <= endPage; i++){
+		        	if(i==currentPage){
+		    %>
+	        			<a class="active" href="<%=request.getContextPath()%>/boardList.jsp?currentPage=<%=i %>">
+	        				<%=i %>
+	        			</a>
+		    <%
+		        	}else{
+	    	%>
+	        			<a href="<%=request.getContextPath()%>/boardList.jsp?currentPage=<%=i %>">
+	        				<%=i %>
+	        			</a>
+	        <%
+	        		}
+		        }
+		    	//다음 페이지 버튼
+		    	if(endPage != lastPage){
+	        %>
+					<a class="arrow next" href="<%=request.getContextPath()%>/boardList.jsp?currentPage=<%=startPage+pagePerPage %>">
+						다음
+					</a>
+			<%
+				}
+			%>
+			</div>
+		</div>	
 	</div>
 </body>
 </html>

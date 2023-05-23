@@ -63,42 +63,45 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<!-- 메인메뉴 페이지 include -->
+	<div>
+		<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+	</div>
 	
-		<!-- 메인메뉴 페이지 include -->
-		<div>
-			<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
-		</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+			<!-- 수정폼 -->
+			<h1>board & boardFile 수정</h1>
+			<form action="<%=request.getContextPath()%>/modifyBoardAction.jsp" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="boardNo" value="<%=map.get("boardNo")%>">
+				<input type="hidden" name="boardFileNo" value="<%=map.get("boardFileNo")%>">
 				
-		<!-- 수정폼 -->
-		<h1>board & boardFile 수정</h1>
-		<form action="<%=request.getContextPath()%>/modifyBoardAction.jsp" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="boardNo" value="<%=map.get("boardNo")%>">
-			<input type="hidden" name="boardFileNo" value="<%=map.get("boardFileNo")%>">
-			
-			<table class="table table-sm text-center">
-				<tr>
-					<th>게시글 제목</th>
-					<td>
-						<textarea rows="3" cols="50" name="boardTitle" required="required">
-							<%=map.get("boardTitle")%>
-						</textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>파일(수정전 파일 : <%=map.get("originFilename")%>)</th>
-					<td>
-						<input type="file" name="boardFile"> 
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<button type="submit" class="btn btn-outline-secondary">수정</button>
-					</td>
-					<!-- <td></td> -->
-				</tr>
-			</table>		
-		</form>
+				<table class="table table-sm">
+					<tr>
+						<th>게시글 제목</th>
+						<td>
+							<textarea rows="3" cols="50" name="boardTitle" required="required">
+								<%=map.get("boardTitle")%>
+							</textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>파일(수정전 파일 : <%=map.get("originFilename")%>)</th>
+						<td>
+							<input type="file" name="boardFile"> 
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button type="submit" class="btn btn-outline-dark">수정</button>
+						</td>
+						<!-- <td></td> -->
+					</tr>
+				</table>		
+			</form>
+			</div>
+		</div>	
 	</div>
 </body>
 </html>

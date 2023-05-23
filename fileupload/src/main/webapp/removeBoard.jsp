@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.oreilly.servlet.*" %>
-<%@ page import="com.oreilly.servlet.multipart.*" %>
 <%@ page import = "java.sql.*"%>
 <%@ page import = "java.net.*"%>
 <%@ page import = "vo.*"%>
@@ -36,29 +34,41 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+	<!-- 메인메뉴 페이지 include -->
+	<div>
+		<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+	</div>
+	
+	<!-- 게시글 삭제  -->
 	<div class="container">
-		<h1>게시글 삭제</h1>
-		<form action="./removeBoardAction.jsp" method="post">
-			<input type="hidden" name="boardFileNo" value="<%=boardFileNo %>">
-			<table class="table">
-				<tr>
-					<th>게시글 번호</th>
-					<td>
-						<input type="text" name="boardNo" value="<%=boardNo %>" readonly="readonly" style="border:none">
-					</td>			
-				</tr>
-				<tr>
-					<th>회원 ID</th>
-					<td>
-						<input type="text" name="memberId">
-					</td>
-				</tr>
-			</table>
-			<div>
-				&nbsp;
-				<button type="submit" class="btn btn-outline-secondary">삭제</button>
+		<div class="row">
+			<div class="col-sm-8">
+			<h1>게시글 삭제</h1>
+			<form action="./removeBoardAction.jsp" method="post">
+				<input type="hidden" name="boardFileNo" value="<%=boardFileNo %>">
+				<table class="table">
+					<tr>
+						<th>게시글 번호</th>
+						<td>
+							<input type="text" name="boardNo" value="<%=boardNo %>" readonly="readonly" style="border:none">
+						</td>			
+					</tr>
+					<tr>
+						<th>회원 ID</th>
+						<td>
+							<input type="text" name="memberId">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button type="submit" class="btn btn-outline-dark">삭제</button>
+						</td>
+						<!-- <td></td> -->
+					</tr>
+				</table>
+			</form>
 			</div>
-		</form>
+		</div>	
 	</div>
 </body>
 </html>
