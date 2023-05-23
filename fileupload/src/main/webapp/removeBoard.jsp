@@ -7,7 +7,7 @@
 <%
 	//세션 유효성 검사 : 로그인이 되어있지 않으면 home으로 리다이렉션
 	if(session.getAttribute("loginMemberId") == null){
-		response.sendRedirect(request.getContextPath()+"/home.jsp");
+		response.sendRedirect(request.getContextPath()+"/boardList.jsp");
 		return;
 	}
 
@@ -39,7 +39,7 @@
 				<tr>
 					<th>게시글 번호</th>
 					<td>
-						<input type="text" name="boardNo" value="<%=boardNo %>" readonly="readonly">
+						<input type="text" name="boardNo" value="<%=boardNo %>" readonly="readonly" style="border:none">
 					</td>			
 				</tr>
 				<tr>
